@@ -1,0 +1,24 @@
+{
+  "app": {
+    "title": "Administrador de Frases"
+  },
+  "buttons": {
+    "delete": "Eliminar frase",
+    "add": "Agregar frase"
+  },
+  "placeholder": {
+    "addPhrase": "Escribe una nueva frase...",
+    "searching": "Buscando...",
+    "searchPhrases": "Buscar frases..."
+  },
+  "search": {
+    "label": "Buscar frase"
+  },
+  "grid": {
+    "title": "Frases"
+  },
+  "phrases": {
+    "hello_world": "Hola mundo",
+    "example_1": "Frase de ejemplo 1"
+  }
+}

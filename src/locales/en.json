@@ -1,0 +1,24 @@
+{
+  "app": {
+    "title": "Phrase Manager"
+  },
+  "buttons": {
+    "delete": "Delete phrase",
+    "add": "Add Phrase"
+  },
+  "placeholder": {
+    "addPhrase": "Enter a new phrase...",
+    "searching": "Searching...",
+    "searchPhrases": "Search phrases..."
+  },
+  "search": {
+    "label": "Search"
+  },
+  "grid": {
+    "title": "Cards"
+  },
+  "phrases": {
+    "hello_world": "Hello world",
+    "example_1": "Example phrase 1"
+  }
+}
