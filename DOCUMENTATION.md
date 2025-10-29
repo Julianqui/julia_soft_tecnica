@@ -69,7 +69,7 @@ src/
 
 1. **TypeScript**: Used for type safety and better developer experience
 2. **Context API**: Chosen over Redux for its simplicity and built-in integration with React
-3. **CSS Modules**: Used for component-scoped styling to prevent conflicts
+3. **Styled Components**: Used for component-scoped styling with CSS-in-JS
 4. **Testing Library**: Chosen for its user-centric testing approach
 
 ## Future Improvements

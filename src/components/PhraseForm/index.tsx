@@ -10,8 +10,9 @@ export const PhraseForm: FC = () => {
   const { t } = useTranslation();
 
   const handleClick = () => {
-    if (newPhrase.trim()) {
-      addPhrase(newPhrase.trim());
+    const trimmedPhrase = newPhrase.trim();
+    if (trimmedPhrase && trimmedPhrase.length > 0) {
+      addPhrase(trimmedPhrase);
       setNewPhrase("");
     }
   };

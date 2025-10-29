@@ -46,15 +46,25 @@ export const Button = styled.button`
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
     background-color: ${colors.buttonHover};
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 
   &:disabled {
     background-color: ${colors.buttonDisabled};
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 
   @media (max-width: 600px) {
