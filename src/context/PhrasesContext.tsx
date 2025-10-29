@@ -20,6 +20,7 @@ interface PhrasesState {
 }
 
 interface PhrasesContextType extends PhrasesState {
+  originalPhrases: Phrase[];
   addPhrase: (text: string) => void;
   deletePhrase: (id: string) => void;
   setSearchQuery: (query: string) => void;
@@ -121,6 +122,7 @@ export const PhrasesProvider = ({ children }: { children: ReactNode }) => {
     () => ({
       ...state,
       phrases: filteredPhrases,
+      originalPhrases: state.phrases,
       addPhrase,
       deletePhrase,
       setSearchQuery,

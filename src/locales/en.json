@@ -12,7 +12,8 @@
     "searchPhrases": "Search phrases..."
   },
   "search": {
-    "label": "Search"
+    "label": "Search",
+    "noResults": "No phrases found matching your search"
   },
   "grid": {
     "title": "Cards"

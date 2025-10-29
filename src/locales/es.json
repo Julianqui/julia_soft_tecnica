@@ -12,7 +12,8 @@
     "searchPhrases": "Buscar frases..."
   },
   "search": {
-    "label": "Buscar frase"
+    "label": "Buscar frase",
+    "noResults": "No se encontraron frases que coincidan con tu búsqueda"
   },
   "grid": {
     "title": "Frases"

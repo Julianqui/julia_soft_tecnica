@@ -13,6 +13,7 @@ jest.mock("../../context/PhrasesContext", () => ({
     searchQuery: "",
     setSearchQuery: mockSet,
     phrases: [{ id: "1", text: "hello", createdAt: new Date() }],
+    originalPhrases: [{ id: "1", text: "hello", createdAt: new Date() }],
   }),
 }));
 

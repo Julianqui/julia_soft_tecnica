@@ -44,13 +44,13 @@
 
 ### Render Props
 
-- Implementado en `components/IntersectionObserver/index.tsx`
-- Permite la reutilización de lógica de intersección observer
+- Patrón implementado en componentes reutilizables
+- Permite la reutilización de lógica entre componentes
 - Ejemplo de patrón de render prop:
   ```typescript
-  <IntersectionObserver
-    render={(isIntersecting) => (
-      // Renderizado condicional basado en isIntersecting
+  <Component
+    render={(data) => (
+      // Renderizado condicional basado en data
     )}
   />
   ```
@@ -95,16 +95,16 @@ Usados en los estilos y clases dinámicas
 
 ### Async/Await
 
-- Implementado en `hooks/useAsync.ts`
+- Implementado en `hoc/withLoading.tsx`
 - Ejemplo de uso:
 
 ```typescript
-const execute = async (asyncFunction: () => Promise<T>) => {
+const handleAsyncOperation = async (operation: () => Promise<void>) => {
+  setIsLoading(true);
   try {
-    const result = await asyncFunction();
-    // ...
-  } catch (error) {
-    // ...
+    await operation();
+  } finally {
+    setIsLoading(false);
   }
 };
 ```
@@ -142,8 +142,11 @@ interface Phrase {
 ### Tipos Genéricos
 
 ```typescript
-export function useAsync<T>() {
-  const [state, setState] = useState<AsyncState<T>>({...});
+export function useDebounce<T extends (...args: any[]) => any>(
+  callback: T,
+  delay: number
+) {
+  // Implementación con tipos genéricos
 }
 ```
 
@@ -183,7 +186,7 @@ src/
 
 1. Implementar tests unitarios y de integración
 2. Agregar persistencia de datos
-3. Implementar infinite scroll usando IntersectionObserver
+3. Implementar infinite scroll
 4. Agregar animaciones de transición
 5. Implementar modo oscuro usando CSS variables
 6. Agregar categorización de frases

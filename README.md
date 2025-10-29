@@ -34,9 +34,8 @@ Una aplicación de gestión de frases construida con React, TypeScript y Vite. P
 ## 🏗️ Arquitectura del Proyecto
 
 ### Patrones de React Avanzado
-- **Hooks personalizados**: `useDebounce`, `useAsync`
+- **Hooks personalizados**: `useDebounce`
 - **Higher Order Components**: `withLoading`
-- **Render Props**: `IntersectionObserver`
 - **Context API**: Estado global con `PhrasesContext`
 
 ### Gestión de Estado
@@ -51,12 +50,10 @@ src/
 │   ├── PhraseCard/      # Tarjeta individual de frase
 │   ├── PhraseForm/      # Formulario de agregar frases
 │   ├── PhraseGrid/      # Grid de frases
-│   ├── SearchBar/       # Barra de búsqueda
-│   └── IntersectionObserver/ # Hook de intersección
+│   └── SearchBar/       # Barra de búsqueda
 ├── context/             # Context API
 │   └── PhrasesContext.tsx
 ├── hooks/               # Hooks personalizados
-│   ├── useAsync.ts
 │   └── useDebounce.ts
 ├── hoc/                 # Higher Order Components
 │   └── withLoading.tsx

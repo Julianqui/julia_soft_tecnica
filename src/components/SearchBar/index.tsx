@@ -10,9 +10,8 @@ interface SearchBarProps {
 }
 
 const SearchBarComponent: FC<SearchBarProps> = ({ isLoading }) => {
-  const { searchQuery, setSearchQuery } = usePhrases();
+  const { searchQuery, setSearchQuery, originalPhrases } = usePhrases();
   const { t } = useTranslation();
-  const { phrases } = usePhrases();
 
   const debouncedSetSearchQuery = useDebounce((value: string) => {
     setSearchQuery(value);
@@ -22,8 +21,9 @@ const SearchBarComponent: FC<SearchBarProps> = ({ isLoading }) => {
     debouncedSetSearchQuery(e.target.value);
   };
 
-  // show search only if there is at least one phrase
-  if (!Array.isArray(phrases) || phrases.length === 0) return null;
+  // show search only if there is at least one phrase in the original list (not filtered)
+  const hasOriginalPhrases = Array.isArray(originalPhrases) && originalPhrases.length > 0;
+  if (!hasOriginalPhrases) return null;
 
   return (
     <Container>
