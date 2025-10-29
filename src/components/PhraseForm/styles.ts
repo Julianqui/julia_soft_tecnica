@@ -1,11 +1,18 @@
 import styled from "styled-components";
 import colors from "../../styles/colors";
+
 export const Form = styled.form`
   display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding: 1rem;
+  flex-direction: row;
   align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 700px;
+  width: 100%;
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -17,6 +24,8 @@ export const Form = styled.form`
 export const Input = styled.input`
   flex: 1;
   padding: 0.75rem;
+  min-width: 300px;
+  max-width: 400px;
   border: 1px solid ${colors.border};
   border-radius: 25px;
   font-size: 1rem;

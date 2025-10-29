@@ -1,7 +1,5 @@
 import { PhrasesProvider } from "./context/PhrasesContext";
-import { PhraseForm } from "./components/PhraseForm";
-import { SearchBar } from "./components/SearchBar";
-import { PhraseGrid } from "./components/PhraseGrid";
+import { PhraseForm, SearchBar, PhraseGrid } from "./components";
 import "./App.css";
 import { useTranslation } from "react-i18next";
 
@@ -12,9 +10,15 @@ function App() {
     <PhrasesProvider>
       <div className="container">
         <h1>{t("app.title")}</h1>
-        <SearchBar />
-        <PhraseForm />
-        <PhraseGrid />
+        <div className="main-layout">
+          <div className="form-section">
+            <PhraseForm />
+          </div>
+          <div className="phrases-section">
+            <SearchBar />
+            <PhraseGrid />
+          </div>
+        </div>
       </div>
     </PhrasesProvider>
   );

@@ -16,6 +16,47 @@ h1 {
   margin-bottom: 2rem;
 }
 
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.form-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.phrases-section {
+  min-height: 200px;
+}
+
+/* Tablet: Stack vertically */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .form-section {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Mobile: Full width */
+@media (max-width: 600px) {
+  .main-layout {
+    gap: 1rem;
+  }
+  
+  .form-section {
+    margin-bottom: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   #root {
     padding: 1rem;

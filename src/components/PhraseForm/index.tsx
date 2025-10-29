@@ -1,4 +1,4 @@
-import type { FC, FormEvent } from "react";
+import type { FC } from "react";
 import { useState } from "react";
 import { usePhrases } from "../../context/PhrasesContext";
 import { Form, Input, Button } from "./styles";
@@ -9,25 +9,35 @@ export const PhraseForm: FC = () => {
   const { addPhrase } = usePhrases();
   const { t } = useTranslation();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleClick = () => {
     if (newPhrase.trim()) {
       addPhrase(newPhrase.trim());
       setNewPhrase("");
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleClick();
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPhrase(e.target.value);
+  };
+
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Input
         type="text"
         value={newPhrase}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setNewPhrase(e.target.value)
-        }
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
         placeholder={t("placeholder.addPhrase")}
       />
-      <Button type="submit">{t("buttons.add")}</Button>
+      <Button type="button" onClick={handleClick}>
+        {t("buttons.add")}
+      </Button>
     </Form>
   );
 };
