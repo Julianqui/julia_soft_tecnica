@@ -4,83 +4,104 @@ import colors from "../../styles/colors";
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  padding: 1rem;
+  gap: 0.75rem;
+  margin-bottom: 0;
+  padding: 0;
 
   @media (max-width: 600px) {
-    padding: 0.75rem;
+    padding: 0;
   }
 `;
 
 export const Input = styled.input`
   flex: 1;
-  padding: 0.75rem;
-  border: 1px solid ${colors.border};
-  border-radius: 25px;
-  font-size: 1rem;
+  padding: 0.875rem 1.125rem;
+  border: 2px solid ${colors.border};
+  border-radius: 10px;
+  font-size: 0.9375rem;
   color: ${colors.formInputText};
   background-color: ${colors.formInputBg};
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::placeholder {
     color: ${colors.formPlaceholder};
-    opacity: 1;
+    opacity: 0.7;
+  }
+
+  &:hover {
+    border-color: ${colors.borderDark};
   }
 
   &:focus {
     outline: none;
-    border-color: ${colors.buttonBg};
-    box-shadow: 0 0 0 2px ${colors.focusRing};
+    border-color: ${colors.primary};
+    box-shadow: 0 0 0 4px ${colors.focusRing};
+    background-color: ${colors.cardBackground};
   }
 
   &[aria-invalid="true"] {
-    border-color: #dc3545;
+    border-color: ${colors.danger};
   }
 `;
 
 export const CharCount = styled.span<{ $isNearLimit: boolean; $isOverLimit: boolean }>`
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
   color: ${({ $isNearLimit, $isOverLimit }) =>
-    $isOverLimit ? "#dc3545" : $isNearLimit ? "#ffc107" : colors.cardText};
+    $isOverLimit ? colors.danger : $isNearLimit ? "#ea580c" : colors.textSecondary};
   text-align: right;
   margin-top: -0.25rem;
-  padding-right: 0.5rem;
+  padding-right: 0.25rem;
 `;
 
 export const ErrorMessage = styled.div`
-  color: #dc3545;
-  font-size: 0.875rem;
+  color: ${colors.danger};
+  font-size: 0.8125rem;
+  font-weight: 500;
   margin-top: -0.25rem;
-  padding-left: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background-color: ${colors.dangerLight};
+  border-radius: 8px;
+  border-left: 3px solid ${colors.danger};
 `;
 
 export const Button = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: ${colors.buttonBg};
-  color: ${colors.label};
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, ${colors.primary} 0%, ${colors.primaryDark} 100%);
+  color: ${colors.buttonText};
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   align-self: flex-start;
+  box-shadow: ${colors.shadowSm};
 
   &:hover:not(:disabled) {
-    background-color: ${colors.buttonHover};
+    transform: translateY(-1px);
+    box-shadow: ${colors.shadowMd};
+    background: linear-gradient(135deg, ${colors.primaryLight} 0%, ${colors.primary} 100%);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
   }
 
   &:disabled {
-    background-color: ${colors.buttonDisabled};
+    background: ${colors.buttonDisabled};
+    color: ${colors.textTertiary};
     cursor: not-allowed;
+    box-shadow: none;
   }
 
-  &:focus {
-    outline: 2px solid ${colors.buttonBg};
+  &:focus-visible {
+    outline: 2px solid ${colors.primary};
     outline-offset: 2px;
   }
 
   @media (max-width: 600px) {
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.875rem;
   }
 `;

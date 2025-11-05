@@ -9,31 +9,36 @@ export const Container = styled.div`
 
 export const Label = styled.label`
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.625rem;
   color: ${colors.label};
   font-weight: 600;
+  font-size: 0.9375rem;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  max-width: 400px;
-  padding: 0.75rem 1rem;
-  border: 1px solid ${colors.border};
-  border-radius: 25px;
-  font-size: 1rem;
+  padding: 0.875rem 1.125rem;
+  border: 2px solid ${colors.border};
+  border-radius: 10px;
+  font-size: 0.9375rem;
   background-color: ${colors.inputBg};
-  /* ensure typed text is dark on white background */
   color: ${colors.inputText};
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::placeholder {
     color: ${colors.placeholder};
-    opacity: 1;
+    opacity: 0.7;
+  }
+
+  &:hover {
+    border-color: ${colors.borderDark};
   }
 
   &:focus {
     outline: none;
-    border-color: ${colors.buttonBg};
-    box-shadow: 0 0 0 2px ${colors.focusRing};
+    border-color: ${colors.primary};
+    box-shadow: 0 0 0 4px ${colors.focusRing};
+    background-color: ${colors.cardBackground};
   }
 `;
 
