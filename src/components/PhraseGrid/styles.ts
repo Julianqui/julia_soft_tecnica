@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import colors from "../../styles/colors";
 
 export const Grid = styled.div`
   display: grid;
@@ -23,4 +24,12 @@ export const Grid = styled.div`
     gap: 0.5rem;
     padding: 0.5rem;
   }
+`;
+
+export const EmptyState = styled.div`
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  color: ${colors.cardText};
+  font-size: 1.1rem;
 `;

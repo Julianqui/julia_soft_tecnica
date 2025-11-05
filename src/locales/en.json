@@ -4,7 +4,9 @@
   },
   "buttons": {
     "delete": "Delete phrase",
-    "add": "Add Phrase"
+    "add": "Add Phrase",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "placeholder": {
     "addPhrase": "Enter a new phrase...",
@@ -13,7 +15,8 @@
   },
   "search": {
     "label": "Search",
-    "noResults": "No phrases found matching your search"
+    "noResults": "No phrases found matching your search",
+    "hint": "Minimum {{minLength}} characters to search"
   },
   "grid": {
     "title": "Cards"
@@ -21,5 +24,20 @@
   "phrases": {
     "hello_world": "Hello world",
     "example_1": "Example phrase 1"
+  },
+  "delete": {
+    "confirm": "Are you sure you want to delete this phrase?",
+    "success": "Phrase deleted successfully",
+    "error": "Error deleting phrase"
+  },
+  "add": {
+    "success": "Phrase added successfully",
+    "error": "Error adding phrase",
+    "maxLength": "Phrase cannot exceed {{maxLength}} characters",
+    "minLength": "Phrase must be at least {{minLength}} characters"
+  },
+  "validation": {
+    "required": "This field is required",
+    "maxLength": "Maximum {{maxLength}} characters"
   }
 }

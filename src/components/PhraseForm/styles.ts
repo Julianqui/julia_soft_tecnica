@@ -1,22 +1,14 @@
 import styled from "styled-components";
 import colors from "../../styles/colors";
 
-export const Form = styled.form`
+export const Form = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: 700px;
-  width: 100%;
 
   @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: stretch;
     padding: 0.75rem;
   }
 `;
@@ -24,8 +16,6 @@ export const Form = styled.form`
 export const Input = styled.input`
   flex: 1;
   padding: 0.75rem;
-  min-width: 300px;
-  max-width: 400px;
   border: 1px solid ${colors.border};
   border-radius: 25px;
   font-size: 1rem;
@@ -36,6 +26,32 @@ export const Input = styled.input`
     color: ${colors.formPlaceholder};
     opacity: 1;
   }
+
+  &:focus {
+    outline: none;
+    border-color: ${colors.buttonBg};
+    box-shadow: 0 0 0 2px ${colors.focusRing};
+  }
+
+  &[aria-invalid="true"] {
+    border-color: #dc3545;
+  }
+`;
+
+export const CharCount = styled.span<{ $isNearLimit: boolean; $isOverLimit: boolean }>`
+  font-size: 0.875rem;
+  color: ${({ $isNearLimit, $isOverLimit }) =>
+    $isOverLimit ? "#dc3545" : $isNearLimit ? "#ffc107" : colors.cardText};
+  text-align: right;
+  margin-top: -0.25rem;
+  padding-right: 0.5rem;
+`;
+
+export const ErrorMessage = styled.div`
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: -0.25rem;
+  padding-left: 0.75rem;
 `;
 
 export const Button = styled.button`
@@ -46,25 +62,21 @@ export const Button = styled.button`
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${colors.buttonHover};
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 
   &:disabled {
     background-color: ${colors.buttonDisabled};
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+  }
+
+  &:focus {
+    outline: 2px solid ${colors.buttonBg};
+    outline-offset: 2px;
   }
 
   @media (max-width: 600px) {

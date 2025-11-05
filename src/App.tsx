@@ -10,6 +10,12 @@ function App() {
     <PhrasesProvider>
       <div className="container">
         <h1>{t("app.title")}</h1>
+        <div
+          className="sr-only"
+          aria-live="polite"
+          aria-atomic="true"
+          id="app-announcements"
+        />
         <div className="main-layout">
           <div className="form-section">
             <PhraseForm />

@@ -4,7 +4,9 @@
   },
   "buttons": {
     "delete": "Eliminar frase",
-    "add": "Agregar frase"
+    "add": "Agregar frase",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
   },
   "placeholder": {
     "addPhrase": "Escribe una nueva frase...",
@@ -13,7 +15,8 @@
   },
   "search": {
     "label": "Buscar frase",
-    "noResults": "No se encontraron frases que coincidan con tu búsqueda"
+    "noResults": "No se encontraron frases que coincidan con tu búsqueda",
+    "hint": "Mínimo {{minLength}} caracteres para buscar"
   },
   "grid": {
     "title": "Frases"
@@ -21,5 +24,20 @@
   "phrases": {
     "hello_world": "Hola mundo",
     "example_1": "Frase de ejemplo 1"
+  },
+  "delete": {
+    "confirm": "¿Estás seguro de que quieres eliminar esta frase?",
+    "success": "Frase eliminada correctamente",
+    "error": "Error al eliminar la frase"
+  },
+  "add": {
+    "success": "Frase agregada correctamente",
+    "error": "Error al agregar la frase",
+    "maxLength": "La frase no puede exceder {{maxLength}} caracteres",
+    "minLength": "La frase debe tener al menos {{minLength}} caracteres"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "maxLength": "Máximo {{maxLength}} caracteres"
   }
 }

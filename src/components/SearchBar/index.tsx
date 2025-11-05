@@ -9,12 +9,26 @@ interface SearchBarProps {
   isLoading?: boolean;
 }
 
+const MIN_SEARCH_LENGTH = 2;
+
+// Collapse multiple spaces into one
+function collapseSpaces(str: string): string {
+  return str.replace(/\s+/g, " ").trim();
+}
+
 const SearchBarComponent: FC<SearchBarProps> = ({ isLoading }) => {
   const { searchQuery, setSearchQuery, originalPhrases } = usePhrases();
   const { t } = useTranslation();
 
   const debouncedSetSearchQuery = useDebounce((value: string) => {
-    setSearchQuery(value);
+    const processed = collapseSpaces(value);
+    // Only set search query if it meets minimum length or is empty
+    if (processed.length === 0 || processed.length >= MIN_SEARCH_LENGTH) {
+      setSearchQuery(processed);
+    } else {
+      // Clear search if below minimum length
+      setSearchQuery("");
+    }
   }, 300);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,8 +41,9 @@ const SearchBarComponent: FC<SearchBarProps> = ({ isLoading }) => {
 
   return (
     <Container>
-      <Label>{t("search.label")}</Label>
+      <Label htmlFor="search-input">{t("search.label")}</Label>
       <Input
+        id="search-input"
         type="text"
         defaultValue={searchQuery}
         onChange={handleSearch}
@@ -38,7 +53,12 @@ const SearchBarComponent: FC<SearchBarProps> = ({ isLoading }) => {
             : t("placeholder.searchPhrases")
         }
         disabled={isLoading}
+        aria-label={t("search.label")}
+        aria-describedby="search-hint"
       />
+      <span id="search-hint" className="sr-only">
+        {t("search.hint", { minLength: MIN_SEARCH_LENGTH })}
+      </span>
     </Container>
   );
 };

@@ -87,12 +87,14 @@ npm run dev
 
 ### Scripts Disponibles
 ```bash
-npm run dev          # Servidor de desarrollo
-npm run build        # Build de producción
-npm run preview      # Preview del build
-npm run test         # Ejecutar tests
-npm run test:watch   # Tests en modo watch
-npm run lint         # Linting del código
+npm run dev              # Servidor de desarrollo
+npm run build            # Build de producción
+npm run preview          # Preview del build
+npm run test             # Ejecutar tests
+npm run test:watch       # Tests en modo watch
+npm run test:coverage    # Tests con cobertura (objetivo ≥80%)
+npm run type-check       # Verificar tipos TypeScript sin compilar
+npm run lint             # Linting del código
 ```
 
 ## 🧪 Testing
@@ -106,8 +108,8 @@ npm test
 # Tests en modo watch
 npm run test:watch
 
-# Tests con coverage
-npm test -- --coverage
+# Tests con coverage y umbrales (objetivo ≥80%)
+npm run test:coverage
 ```
 
 ### Cobertura de Tests
@@ -116,14 +118,26 @@ npm test -- --coverage
 - ✅ Context providers
 - ✅ Integración de componentes
 - ✅ Interacciones de usuario
+- ✅ **Tests robustos del buscador con fake timers** (debounce, minLength, regex)
+- ✅ **Umbrales de cobertura configurados** (branches, functions, lines, statements ≥80%)
+
+### Testing del Buscador
+Los tests del buscador utilizan `jest.useFakeTimers()` para verificar:
+- **Debounce**: Verifica que el delay de 300ms funciona correctamente
+- **MinLength**: Valida que búsquedas con menos de 2 caracteres se rechazan
+- **Regex**: Confirma que caracteres especiales de regex se manejan correctamente
+- **Trim y colapso de espacios**: Verifica normalización de entrada
+- **Cancelación de debounce**: Prueba que se cancela el debounce anterior al escribir rápidamente
 
 ## 🎨 Características Técnicas
 
 ### Optimizaciones de Rendimiento
-- **Memoización**: `useMemo` para filtrado de frases
+- **Memoización**: `useMemo` para filtrado de frases y regex patterns
 - **Callbacks optimizados**: `useCallback` para funciones
 - **Debouncing**: Búsqueda optimizada con delay de 300ms
-- **Lazy loading**: Componentes cargados bajo demanda
+- **useDeferredValue**: Para mejorar rendimiento con listas grandes
+- **Regex memoizada**: Patrón de búsqueda se memoiza para evitar recreaciones
+- **Selectores optimizados**: Context particionado para reducir renders innecesarios
 
 ### TypeScript
 - **Tipado fuerte**: Interfaces para todos los componentes
@@ -153,6 +167,46 @@ Los textos se cargan dinámicamente desde archivos JSON en `src/locales/`.
 - **Tablet**: Layout apilado verticalmente
 - **Mobile**: Diseño optimizado para pantallas pequeñas
 
+## 🎯 Decisiones Técnicas
+
+### Búsqueda Robusta
+- **MinLength ≥ 2**: Se requiere mínimo 2 caracteres para activar la búsqueda
+- **Trim y colapso de espacios**: Se normaliza la entrada eliminando espacios múltiples
+- **Regex con escapeRegExp**: Se usa `RegExp(escapeRegExp(term), 'i')` memoizada en lugar de `includes()` para:
+  - Búsqueda case-insensitive más eficiente
+  - Manejo seguro de caracteres especiales de regex
+  - Mejor rendimiento con listas grandes
+- **useDeferredValue**: Para listas grandes, se usa `useDeferredValue` para diferir actualizaciones no urgentes
+- **Timers en tests**: Se usan `jest.useFakeTimers()` para verificar debounce y comportamiento asíncrono
+
+### Layout y Estilos
+- **line-clamp (3 líneas)**: Las frases largas se limitan a 3 líneas con `-webkit-line-clamp`
+- **Estilos en archivos separados**: Todos los estilos están en `styles.ts`, sin estilos inline
+- **EmptyState styled**: El estado vacío usa componentes styled en lugar de estilos inline
+
+### Accesibilidad
+- **Confirmación de borrado**: Modal accesible con `role="dialog"` y `aria-modal`
+- **Manejo de foco**: 
+  - Al agregar frase, el foco vuelve al input
+  - Al eliminar, el foco se mueve a la siguiente card o al grid
+- **aria-live**: Regiones `aria-live="polite"` para anunciar agregado/eliminado de frases
+- **ARIA labels**: Todos los elementos interactivos tienen labels apropiados
+
+### Validaciones y Robustez
+- **Límites de caracteres**: 
+  - Mínimo: 1 carácter
+  - Máximo: 500 caracteres
+- **Feedback visual**: 
+  - Contador de caracteres con colores (normal/amarillo/rojo)
+  - Mensajes de error visibles
+  - Input deshabilitado cuando excede límite
+- **Manejo de errores**: Try-catch en operaciones críticas con mensajes de error traducidos
+
+### Gestión de Estado
+- **Filtrado como estado derivado**: El filtrado se calcula en `useMemo`, no se almacena
+- **Selectores optimizados**: El contexto se particiona para reducir renders innecesarios
+- **useDeferredValue**: Para búsquedas, se usa valor diferido para mejorar UX
+
 ## 🔧 Configuración de Desarrollo
 
 ### ESLint
@@ -166,6 +220,23 @@ Configuración estricta en `tsconfig.json`:
 - Strict mode habilitado
 - Path mapping configurado
 - Excludes optimizados
+
+Verificar tipos sin compilar:
+```bash
+npm run type-check
+```
+
+### Coverage
+Ejecutar tests con cobertura y verificar umbrales (≥80%):
+```bash
+npm run test:coverage
+```
+
+Umbrales configurados:
+- Branches: ≥80%
+- Functions: ≥80%
+- Lines: ≥80%
+- Statements: ≥80%
 
 ## 🚀 Despliegue
 

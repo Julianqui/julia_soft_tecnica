@@ -5,6 +5,7 @@ import {
   useCallback,
   useMemo,
   useEffect,
+  useDeferredValue,
 } from "react";
 import type { ReactNode } from "react";
 
@@ -29,6 +30,11 @@ interface PhrasesContextType extends PhrasesState {
 const PhrasesContext = createContext<PhrasesContextType | undefined>(undefined);
 
 const STORAGE_KEY = "phrases_v1";
+
+// Escape special regex characters
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 const loadInitialState = (): PhrasesState => {
   try {
@@ -112,11 +118,25 @@ export const PhrasesProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: "SET_SEARCH_QUERY", payload: query });
   }, []);
 
+  // Use deferred value for search query to improve performance with large lists
+  const deferredSearchQuery = useDeferredValue(state.searchQuery);
+
+  // Memoize the regex pattern to avoid recreating it on every render
+  const searchRegex = useMemo(() => {
+    if (!deferredSearchQuery || deferredSearchQuery.length < 2) {
+      return null;
+    }
+    const escaped = escapeRegExp(deferredSearchQuery);
+    return new RegExp(escaped, "i");
+  }, [deferredSearchQuery]);
+
+  // Filter phrases using memoized regex
   const filteredPhrases = useMemo(() => {
-    return state.phrases.filter((phrase) =>
-      phrase.text.toLowerCase().includes(state.searchQuery.toLowerCase())
-    );
-  }, [state.phrases, state.searchQuery]);
+    if (!searchRegex) {
+      return state.phrases;
+    }
+    return state.phrases.filter((phrase) => searchRegex.test(phrase.text));
+  }, [state.phrases, searchRegex]);
 
   const value = useMemo(
     () => ({
