@@ -10,6 +10,7 @@ interface SearchBarProps {
 }
 
 const MIN_SEARCH_LENGTH = 2;
+const MAX_SEARCH_LENGTH = 100; // Same as MAX_PHRASE_LENGTH
 
 // Collapse multiple spaces into one
 function collapseSpaces(str: string): string {
@@ -55,6 +56,7 @@ const SearchBarComponent: FC<SearchBarProps> = ({ isLoading }) => {
         disabled={isLoading}
         aria-label={t("search.label")}
         aria-describedby="search-hint"
+        maxLength={MAX_SEARCH_LENGTH}
       />
       <span id="search-hint" className="sr-only">
         {t("search.hint", { minLength: MIN_SEARCH_LENGTH })}

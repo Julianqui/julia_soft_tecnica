@@ -2,7 +2,8 @@ import type { FC } from "react";
 import { useState, useRef } from "react";
 import type { Phrase } from "../../types";
 import { usePhrases } from "../../context/PhrasesContext";
-import { Card, Text, DeleteButton, ModalOverlay, ModalContent, ModalActions, ModalButton } from "./styles";
+import { Card, Text, DeleteButton } from "./styles";
+import { ConfirmModal } from "../ConfirmModal";
 import { useTranslation } from "react-i18next";
 
 interface PhraseCardProps {
@@ -47,12 +48,6 @@ export const PhraseCard: FC<PhraseCardProps> = ({ phrase, onDelete }) => {
     deleteButtonRef.current?.focus();
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      handleCancelDelete();
-    }
-  };
-
   return (
     <>
       <Card ref={cardRef} tabIndex={0} data-phrase-id={phrase.id}>
@@ -66,27 +61,15 @@ export const PhraseCard: FC<PhraseCardProps> = ({ phrase, onDelete }) => {
         </DeleteButton>
       </Card>
       
-      {showConfirm && (
-        <ModalOverlay
-          onClick={handleCancelDelete}
-          onKeyDown={handleKeyDown}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="delete-confirm-title"
-        >
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <h3 id="delete-confirm-title">{t("delete.confirm")}</h3>
-            <ModalActions>
-              <ModalButton onClick={handleCancelDelete} variant="secondary">
-                {t("buttons.cancel")}
-              </ModalButton>
-              <ModalButton onClick={handleConfirmDelete} variant="primary">
-                {t("buttons.confirm")}
-              </ModalButton>
-            </ModalActions>
-          </ModalContent>
-        </ModalOverlay>
-      )}
+      <ConfirmModal
+        isOpen={showConfirm}
+        title={t("delete.confirm")}
+        confirmText={t("buttons.confirm")}
+        cancelText={t("buttons.cancel")}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+        confirmVariant="primary"
+      />
     </>
   );
 };
